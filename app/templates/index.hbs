@@ -1,5 +1,15 @@
+{{#if errorMessage}}
+  <div class="alert alert-primary">
+    Error: Unable to upload or parse CSV file: {{errorMessage}}
+  </div>
+{{/if}}
 <div class='input-group'>
-  {{input type='file' accept='application/csv' value=inputCSV class='form-control'}}
+  <input
+    multiple="true"
+    type="file"
+    accept=".csv"
+    class="form-control"
+    onchange={{action 'onchange' value='target.files'}}>
   <span class="input-group-btn">
     <button
       type="submit"
