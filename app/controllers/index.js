@@ -14,7 +14,11 @@ export default Ember.Controller.extend({
 
       fileReader.readAsText(this.get('inputCSV')[0]);
       fileReader.onload = (event) => {
-        console.log(event.target.result);
+        try {
+          this._parseCSV(event.target.result);
+        } catch (e) {
+          this.set('errorMessage', e)
+        }
       }
 
       fileReader.onerror = (error) => {
@@ -23,5 +27,9 @@ export default Ember.Controller.extend({
         }
       }
     }
+  },
+
+  _parseCSV(csv) {
+    console.log(csv);
   }
 });
