@@ -1,10 +1,10 @@
 {
   "name": "tradegecko",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "private": true,
-  "description": "Small description for tradegecko goes here",
+  "description": "object state reconstruction",
   "license": "MIT",
-  "author": "",
+  "author": "Brian Chan",
   "directories": {
     "doc": "doc",
     "test": "tests"

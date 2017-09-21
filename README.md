@@ -1,7 +1,13 @@
-# tradegecko
+# Object State Reconstruction!
 
-This README outlines the details of collaborating on this Ember application.
-A short introduction of this app could easily go here.
+This program will allow a user to upload a CSV file of N rows comprised of
+records. Each record has an ID, type, date and timestamp, and finally a state
+change. After uploading, users can query for specific records using the form.
+
+Things to note:
+* Making an empty query will return all records
+* Records are persisted on local storage
+* To reset, please clear your local storage for the web-app through dev tools
 
 ## Prerequisites
 
