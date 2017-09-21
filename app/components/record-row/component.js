@@ -19,7 +19,9 @@ export default Ember.Component.extend({
   record: null,
 
   timestampString: Ember.computed('record.timestamp', function() {
-    return this.get('record.timestamp').toString();
+    let timestamp = new Date(this.get('record.timestamp'));
+    
+    return timestamp.toString();
   }),
 
   changes: Ember.computed('record.changes', function() {

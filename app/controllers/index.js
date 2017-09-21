@@ -47,13 +47,14 @@ export default Ember.Controller.extend({
       let searchTimestamp = this.get('searchTimestamp');
 
       if (searchId) {
-        filter._id = parseInt(searchId);
+        filter.objectId = parseInt(searchId);
       }
       if (searchType) {
-        filter.type = searchType;
+        filter.objectType = searchType;
       }
       if (searchTimestamp) {
-        filter.timestamp = new Date(searchTimestamp);
+        let timestamp = new Date(searchTimestamp);
+        filter.timestamp = timestamp.getTime();
       }
       console.log(filter);
       this.get('store').query('record', { filter }).then((records) => {
@@ -70,9 +71,9 @@ export default Ember.Controller.extend({
       let changesString = JSON.parse(row.substr(startOfChanges));
 
       let record = this.get('store').createRecord('record', {
-        _id: parseInt(rowArray[0]),
-        type: rowArray[1],
-        timestamp: new Date(parseInt(rowArray[2]) * 1000),
+        objectId: parseInt(rowArray[0]),
+        objectType: rowArray[1],
+        timestamp: parseInt(rowArray[2]) * 1000,
         changes: changesString
       });
 
