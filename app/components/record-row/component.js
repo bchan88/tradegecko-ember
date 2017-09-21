@@ -26,13 +26,13 @@ export default Ember.Component.extend({
     let changesObject = JSON.parse(this.get('record.changes'));
     let changesArray = Object.entries(changesObject);
 
-    changesArray.map((change) => {
+    return changesArray.map((change) => {
       let [key, value] = change;
 
       return {
         key: KEY_NAME_MAP[key],
         value
       };
-    })
+    });
   })
 });

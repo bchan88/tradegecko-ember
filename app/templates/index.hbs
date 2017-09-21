@@ -49,7 +49,9 @@
       </tr>
     </thead>
     <tbody>
-      
+      {{#each model as |record|}}
+        {{record-row record=record}}
+      {{/each}}
     </tbody>
   </table>
 </div>
