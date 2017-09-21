@@ -20,7 +20,7 @@ export default Ember.Component.extend({
 
   timestampString: Ember.computed('record.timestamp', function() {
     let timestamp = new Date(this.get('record.timestamp'));
-    
+
     return timestamp.toString();
   }),
 
@@ -32,7 +32,7 @@ export default Ember.Component.extend({
       let [key, value] = change;
 
       return {
-        key: KEY_NAME_MAP[key],
+        key: KEY_NAME_MAP[key] || key,
         value
       };
     });

@@ -1,6 +1,11 @@
 {{#if errorMessage}}
-  <div class="alert alert-primary">
+  <div class="alert alert-danger" role="alert">
     Error: Unable to upload or parse CSV file: {{errorMessage}}
+  </div>
+{{/if}}
+{{#if isShowingSuccess}}
+  <div class="alert alert-success" role="alert">
+    Successfully uploaded CSV
   </div>
 {{/if}}
 <form class="form-inline text-center" style="margin: 2em;">
@@ -49,9 +54,15 @@
       </tr>
     </thead>
     <tbody>
-      {{#each searchResults as |record|}}
-        {{record-row record=record}}
-      {{/each}}
+      {{#if (and didMakeSearch (eq searchResults.length 0))}}
+        <tr>
+          No state objects found.
+        </tr>
+      {{else}}
+        {{#each searchResults as |record|}}
+          {{record-row record=record}}
+        {{/each}}
+      {{/if}}
     </tbody>
   </table>
 </div>

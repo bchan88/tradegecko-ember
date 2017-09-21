@@ -9,6 +9,8 @@ export default Ember.Controller.extend({
   searchId: null,
   searchType: null,
   searchTimestamp: null,
+  didMakeSearch: false,
+  isShowingSuccess: false,
 
   init() {
     this._super(...arguments);
@@ -22,9 +24,14 @@ export default Ember.Controller.extend({
     },
 
     uploadCSV() {
-      let fileReader = new FileReader();
+      let inputCSV = this.get('inputCSV');
 
-      fileReader.readAsText(this.get('inputCSV')[0]);
+      if (!inputCSV || inputCSV.length === 0) {
+        return;
+      }
+
+      let fileReader = new FileReader();
+      fileReader.readAsText(inputCSV[0]);
       fileReader.onload = (event) => {
         try {
           this._parseCSV(event.target.result);
@@ -41,6 +48,8 @@ export default Ember.Controller.extend({
     },
 
     submitSearch() {
+      this.set('didMakeSearch', true);
+
       let filter = {};
       let searchId = this.get('searchId');
       let searchType = this.get('searchType');
@@ -56,7 +65,7 @@ export default Ember.Controller.extend({
         let timestamp = new Date(searchTimestamp);
         filter.timestamp = timestamp.getTime();
       }
-      console.log(filter);
+
       this.get('store').query('record', { filter }).then((records) => {
         this.set('searchResults', records);
       });
@@ -65,6 +74,11 @@ export default Ember.Controller.extend({
 
   _parseCSV(csv) {
     let rows = csv.split('\n');
+
+    if (rows[0].includes('object_id')) {
+      rows = rows.slice(1);
+    }
+
     rows.forEach((row) => {
       let rowArray = row.split(',', 3);
       let startOfChanges = row.indexOf('"');
@@ -79,5 +93,9 @@ export default Ember.Controller.extend({
 
       record.save();
     });
+
+    this.set('errorMessage', null);
+    this.set('isShowingSuccess', true);
+    setTimeout(() => this.set('isShowingSuccess', false), 2000);
   }
 });
