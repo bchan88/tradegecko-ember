@@ -5,6 +5,16 @@ export default Ember.Controller.extend({
 
   inputCSV: null,
   errorMessage: null,
+  searchResults: null,
+  searchId: null,
+  searchType: null,
+  searchTimestamp: null,
+
+  init() {
+    this._super(...arguments);
+
+    this.set('searchResults', []);
+  },
 
   actions: {
     onchange(files) {
@@ -28,6 +38,27 @@ export default Ember.Controller.extend({
           this.set('errorMessage', error.target.error.name);
         }
       }
+    },
+
+    submitSearch() {
+      let filter = {};
+      let searchId = this.get('searchId');
+      let searchType = this.get('searchType');
+      let searchTimestamp = this.get('searchTimestamp');
+
+      if (searchId) {
+        filter._id = parseInt(searchId);
+      }
+      if (searchType) {
+        filter.type = searchType;
+      }
+      if (searchTimestamp) {
+        filter.timestamp = new Date(searchTimestamp);
+      }
+      console.log(filter);
+      this.get('store').query('record', { filter }).then((records) => {
+        this.set('searchResults', records);
+      });
     }
   },
 

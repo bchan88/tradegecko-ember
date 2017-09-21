@@ -25,18 +25,18 @@
   <form class="form-inline text-center panel-body">
     <div class="form-group">
       <label>ID:</label>
-      {{input type='text' value=formId class='form-control'}}
+      {{input type='text' value=searchId class='form-control'}}
     </div>
     <div class="form-group">
       <label>Type:</label>
-      {{input type='text' value=formType class='form-control'}}
+      {{input type='text' value=searchType class='form-control'}}
     </div>
     <div class="form-group">
       <label>Timestamp:</label>
-      {{input type='datetime-local' value=formTimestamp class='form-control'}}
+      {{input type='datetime-local' step='1' value=searchTimestamp class='form-control'}}
     </div>
     <div class="form-group">
-      <button type="submit" class="btn btn-primary" {{action 'searchSubmit'}}>Submit</button>
+      <button type="submit" class="btn btn-primary" {{action 'submitSearch'}}>Submit</button>
     </div>
   </form>
   <table class="table">
@@ -45,11 +45,11 @@
         <th>ID</th>
         <th>Type</th>
         <th>Timestamp</th>
-        <th>Changes</th>
+        <th>State</th>
       </tr>
     </thead>
     <tbody>
-      {{#each model as |record|}}
+      {{#each searchResults as |record|}}
         {{record-row record=record}}
       {{/each}}
     </tbody>
