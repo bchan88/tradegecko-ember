@@ -1,0 +1,18 @@
+<td>
+  {{record.id}}
+</td>
+<td>
+  {{record.type}}
+</td>
+<td>
+  {{timestampString}}
+</td>
+<td>
+  <ul>
+    {{#each changes as |change|}}
+      <li>
+        <strong>{{change.key}}:</strong> {{change.value}}
+      </li>
+    {{/each}}
+  </ul>
+</td>
