@@ -1,7 +1,7 @@
 {
   "name": "tradegecko",
   "version": "1.0.0",
-  "private": true,
+  "private": false,
   "description": "object state reconstruction",
   "license": "MIT",
   "author": "Brian Chan",
